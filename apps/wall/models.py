@@ -26,6 +26,10 @@ class MessageManager(models.Manager):
 		return self.filter(wall = wall_id)
 
 
+class CommentManager(models.Manager):
+	pass
+
+
 # Create your models here.
 class Message(models.Model):
 	message = models.TextField()
@@ -46,6 +50,8 @@ class Comment(models.Model):
 	message = models.ForeignKey(Message)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
+	commentManager = CommentManager()
+	objects = models.Manager()
 	def __str__(self):
 		return self.comment
 	class Meta:

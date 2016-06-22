@@ -3,7 +3,7 @@ from ..login_reg.models import User
 from models import Message
 # Create your views here.
 def index(request, user_id):
-
+	request.session['wall'] = user_id
 	context = {
 		'user' : User.userManager.getOne(user_id),
 		'messages' : Message.messageManager.getAll(user_id)
@@ -20,3 +20,7 @@ def add_msg(request, wall_id):
 		else:
 			return redirect('/../../user/'+wall_id)
  
+
+def add_comment(request, msg_id):
+	print "Message ID" + msg_id
+	return redirect('/../../user/'+request.session['wall'])
