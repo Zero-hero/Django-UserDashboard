@@ -43,8 +43,6 @@ class UserManager(models.Manager):
 			errors['confirm_password'] = "passwords do not match"
 		if errors:
 			return (False, errors)
-
-
 		else:
 			password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 			if admin_user == 1:
@@ -56,12 +54,45 @@ class UserManager(models.Manager):
 	def getAll(self):
 		return self.all()
 
+	def getOne(self, user_id):
+		return self.filter(id=user_id)[0]
+
+	def update_profile(self, user_id, email, first_name, last_name):
+		errors = {}
+		if len(first_name) < 2 or not NAME_REGEX.match(first_name):
+			errors['first_name'] = "name cannot be less than 2 characters & must have letters only"
+		if len(last_name) < 2 or not NAME_REGEX.match(last_name):
+			errors['last_name'] = "name cannot be less than 2 characters & must have letters only"
+		if len(email) < 1:
+			errors['req_email'] = "Email is required"
+		if not EMAIL_REGEX.match(email):
+			errors['email'] = "Email not valid"
+		if errors:
+			return (False, errors)
+		else:
+			self.filter(id=user_id).update(email=email, first_name=first_name, last_name=last_name)
+			return (True, self.get(email=email))
+
+	def update_profile_pw(self, user_id, password, conf_password):
+		errors = {}
+		if len(password) < 1:
+			errors['password'] = "password cannot be blank"
+		if password != conf_password:
+			errors['confirm_password'] = "passwords do not match"
+		if errors:
+			return (False, errors)
+		else:
+			password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+			self.filter(id=user_id).update(password=password)
+			return (True, self.get(id=user_id))
+
 # Create your models here.
 class User(models.Model):
 	first_name = models.CharField(max_length = 50)
 	last_name = models.CharField(max_length = 50)
 	role = models.IntegerField(default=0)
 	email = models.EmailField()
+	description = models.TextField(max_length = 1000, default="Hi")
 	password = models.CharField(max_length = 100)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
