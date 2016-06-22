@@ -20,15 +20,32 @@ class MessageManager(models.Manager):
 			print user.id
 			print wall.id
 			self.create(message=message, wall=wall, user=user)
-			return (True, self.get(wall=wall.id))
+			return (True, True)
 
 	def getAll(self, wall_id):
 		return self.filter(wall = wall_id)
 
+	def getOne(self,msg_id):
+		return self.filter(id = msg_id)
+
 
 class CommentManager(models.Manager):
-	pass
+	def addComment(self, msg_id, comment, user):
+		errors = {}
+		if len(comment) < 1:
+			errors['comment'] = "Comment cannot be blank"
+		if errors:
+			return (False, errors)
+		else:
+			msg = Message.messageManager.getOne(msg_id)[0]
+			user = User.userManager.getOne(user)
+			print "Message - ",msg
+			print "USER - ",user
+			self.create(comment=comment, user = user, message = msg)
+			return (True, True)
 
+	def getAll(self):
+		return self.all()
 
 # Create your models here.
 class Message(models.Model):
