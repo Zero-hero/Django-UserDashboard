@@ -43,9 +43,10 @@
 	</nav>
 
 	<!-- SIGN IN -->
-	{% for error in errors%}
-		<p style="color: red">{{error}}</p>
-	{% endfor %}
+	<div class="container">
+		{% for error in errors %}
+			<p class="bg-danger">{{error}}</p>
+		{% endfor %}
 	<form action="{% url 'login' %}" method="post"> {% csrf_token %}
 	  <div class="form-group">
 	    <label for="email">Email address</label>
@@ -57,6 +58,7 @@
 	  </div>
 	  <button type="submit" class="btn btn-default">Sign In</button>
 	</form>
+	</div>
 
 </body>
 </html>

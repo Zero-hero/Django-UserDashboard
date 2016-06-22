@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Register</title>
+	<title>Profile</title>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -31,8 +31,8 @@
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
-	        <li class="active"><a href="dashboard/">Dashboard <span class="sr-only">(current)</span></a></li>
-	         <li><a href="{% url 'my_profile' user_id=request.session.id %}">Profile</a></li>
+	        <li><a href="../../dashboard">Dashboard <span class="sr-only">(current)</span></a></li>
+	         <li class="active"><a href="">Profile</a></li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 	       	<li><a href="{% url 'logout' %}">Log Off</a></li>
@@ -44,50 +44,35 @@
 
 	<div class="container">
 
-	{% if request.session.role == 1 %}
-		<h1>Manage User</h1>
-		<a href="{% url 'new' %}" class="btn btn-default">Add User</a>
-		{% else %}
-		<h1>All Users</h1>
-	{% endif %}
+		<h1>Edit Profile <a href="/../../dashboard" class="btn btn-default pull-right">Return to Dashboard</a></h1>
 
-	{% if users %}
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>Name</th>
-				<th>Email</th>
-				<th>Created At</th>
-				<th>User Level</th>
-				{% if request.session.role == 1 %}
-				<th>Actions</th>
-				{% endif %}
-			</tr>
-		</thead>
-		<tbody>
-			{% for user in users %}
-			<tr>
-				<td>{{user.id}}</td>
-				<td><a href="">{{user.first_name}} {{user.last_name}}</a></td>
-				<td>{{user.email}}</td>
-				<td>{{user.created_at}}</td>
-				<td>
-					{% if user.role == 0 %}
-						normal
-						{% else %}
-						admin
-					{% endif %}
-				</td>
-				{% if request.session.role == 1 %}
-				<td><a href="">Edit</a> | <a href="">Remove</a></td>
-				{% endif %}
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-	{% endif %}
+		{% for error in errors %}
+			<p class="bg-danger">{{error}}</p>
+		{% endfor %}
+		<form action="" method="post">{% csrf_token %}
+		  <div class="form-group">
+		    <label for="email">Email address</label>
+		    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+		  </div>
+		  <div class="form-group">
+		    <label for="first_name">First Name</label>
+		    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First name">
+		  </div>
+		  <div class="form-group">
+		    <label for="last_name">Last Name</label>
+		    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name">
+		  </div>
+		  <div class="form-group">
+		    <label for="password">Password</label>
+		    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+		  </div>
+		  <div class="form-group">
+		    <label for="conf_password">Confirm Password</label>
+		    <input type="password" class="form-control" id="conf_password" name="conf_password" placeholder="Confirm Password">
+		  </div>
 
+		  <button type="submit" class="btn btn-default">Register</button>
+		</form>
 
 	</div>
 </body>

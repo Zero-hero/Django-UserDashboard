@@ -21,7 +21,7 @@ class UserManager(models.Manager):
 		errors = {}
 
 		try:
-			self.all()
+			users = self.all()
 		except:
 			admin_user = 1
 
@@ -47,7 +47,10 @@ class UserManager(models.Manager):
 
 		else:
 			password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-			self.create(first_name=first_name, last_name=last_name, email=email, password=password, role = admin_user)
+			if admin_user == 1:
+				self.create(first_name=first_name, last_name=last_name, email=email, password=password, role = 1)
+			else:
+				self.create(first_name=first_name, last_name=last_name, email=email, password=password, role = 0)
 			return (True, self.get(email=email))
 
 	def getAll(self):
