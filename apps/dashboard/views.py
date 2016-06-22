@@ -72,3 +72,11 @@ def admin_edit(request, user_id):
 		'user' : User.userManager.getOne(user_id)
 	}
 	return render(request, "dashboard/edit.html", context)
+
+# REMOVING a user
+def remove(request, user_id):
+	User.userManager.remove(user_id)
+	return redirect('/../../dashboard')
+
+
+

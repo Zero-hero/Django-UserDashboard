@@ -11,5 +11,6 @@ urlpatterns = [
 	url(r'^update_profile_pw/(?P<user_id>\d+)/$', views.update_profile_pw, name="update_profile_pw"),
 	url(r'^update_profile_desc/(?P<user_id>\d+)/$', views.update_profile_desc, name="update_profile_desc"),
 	url(r'^admin_edit/(?P<user_id>\d+)/$', views.admin_edit, name="admin_edit"),
+	url(r'^remove/(?P<user_id>\d+)/$', views.remove, name="remove"),
 
 ]

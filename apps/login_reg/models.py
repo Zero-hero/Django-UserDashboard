@@ -89,6 +89,10 @@ class UserManager(models.Manager):
 	def update_profile_desc(self, user_id, description):
 		return self.filter(id=user_id).update(description=description)
 
+	def remove(self, user_id):
+		return self.filter(id=user_id).delete()
+
+
 # Create your models here.
 class User(models.Model):
 	first_name = models.CharField(max_length = 50)
