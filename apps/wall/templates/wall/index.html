@@ -3,7 +3,7 @@
 	<title>User Profile</title>
 
 	{% load staticfiles %}
-	<link rel="stylesheet/less" type="text/css" href="{% static 'dashboard/style.less' %}">
+	<link rel="stylesheet/less" type="text/css" href="{% static 'wall/style.less' %}">
 	<!-- LESS -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script>
 
@@ -52,7 +52,6 @@
 	</nav>
 
 	<div class="container">
-		{{request.session.name}}
 		<h1  class="col-md-12 col-lg-12">{{user.first_name}} {{user.last_name}}<a href="/../../dashboard" class="btn btn-default pull-right">Return to Dashboard</a></h1>
 		<h4 class="col-md-12 col-lg-12"><p>Registered At:</p> <span>{{user.created_at}}</span></h4>
 		<h4 class="col-md-12 col-lg-12"><p>User ID:</p> <span>{{user.id}}</span></h4>
