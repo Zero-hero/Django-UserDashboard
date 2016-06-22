@@ -3,4 +3,6 @@ from . import views
 
 urlpatterns = [
 	url(r'^(?P<user_id>\d+)/$', views.index, name="index"),
+	url(r'^add_msg/(?P<wall_id>\d+)/$', views.add_msg, name="add_msg"),
+
 ]
