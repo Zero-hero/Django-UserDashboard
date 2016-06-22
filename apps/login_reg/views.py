@@ -12,6 +12,7 @@ def login(request):
 		if user_tuple[0]:
 			request.session['id'] = user_tuple[1].id
 			request.session['name'] = user_tuple[1].first_name + " " + user_tuple[1].last_name
+			request.session['role'] = user_tuple[1].role
 			print request.session['name']
 			return redirect('../../dashboard')
 		else:

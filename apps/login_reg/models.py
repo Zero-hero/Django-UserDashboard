@@ -50,6 +50,9 @@ class UserManager(models.Manager):
 			self.create(first_name=first_name, last_name=last_name, email=email, password=password, role = admin_user)
 			return (True, self.get(email=email))
 
+	def getAll(self):
+		return self.all()
+
 # Create your models here.
 class User(models.Model):
 	first_name = models.CharField(max_length = 50)
