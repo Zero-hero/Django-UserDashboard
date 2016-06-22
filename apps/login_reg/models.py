@@ -6,6 +6,17 @@ EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9\.\+_-]+@[a-zA-Z0-9\._-]+\.[a-zA-Z]*$')
 NAME_REGEX = re.compile(r'^[a-zA-Z]+$')
 
 class UserManager(models.Manager):
+	def login(self, email, password):
+		try:
+			user = self.get(email = email)
+		except:
+			return (False, {"login" : "Login Failed"})
+
+		if user and bcrypt.hashpw(password.encode('utf-8'), user.password.encode('utf-8')) == user.password:
+			return (True, user)
+		return (False, {"Login": "Login Failed"})
+
+
 	def register(self, first_name, last_name, email, password, conf_password):
 		errors = {}
 
