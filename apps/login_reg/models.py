@@ -86,6 +86,9 @@ class UserManager(models.Manager):
 			self.filter(id=user_id).update(password=password)
 			return (True, self.get(id=user_id))
 
+	def update_profile_desc(self, user_id, description):
+		return self.filter(id=user_id).update(description=description)
+
 # Create your models here.
 class User(models.Model):
 	first_name = models.CharField(max_length = 50)

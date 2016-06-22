@@ -80,7 +80,7 @@
 					{% endif %}
 				</td>
 				{% if request.session.role == 1 %}
-				<td><a href="">Edit</a> | <a href="">Remove</a></td>
+				<td><a href="{% url 'admin_edit' user_id=user.id %}">Edit</a> | <a href="">Remove</a></td>
 				{% endif %}
 			</tr>
 			{% endfor %}
