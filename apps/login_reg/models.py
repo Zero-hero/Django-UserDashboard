@@ -73,6 +73,22 @@ class UserManager(models.Manager):
 			self.filter(id=user_id).update(email=email, first_name=first_name, last_name=last_name)
 			return (True, self.get(email=email))
 
+	def update_profile_admin(self, user_id, email, first_name, last_name, role):
+		errors = {}
+		if len(first_name) < 2 or not NAME_REGEX.match(first_name):
+			errors['first_name'] = "name cannot be less than 2 characters & must have letters only"
+		if len(last_name) < 2 or not NAME_REGEX.match(last_name):
+			errors['last_name'] = "name cannot be less than 2 characters & must have letters only"
+		if len(email) < 1:
+			errors['req_email'] = "Email is required"
+		if not EMAIL_REGEX.match(email):
+			errors['email'] = "Email not valid"
+		if errors:
+			return (False, errors)
+		else:
+			self.filter(id=user_id).update(email=email, first_name=first_name, last_name=last_name, role=role)
+			return (True, self.get(email=email))
+
 	def update_profile_pw(self, user_id, password, conf_password):
 		errors = {}
 		if len(password) < 1:

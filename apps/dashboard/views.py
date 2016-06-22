@@ -49,6 +49,21 @@ def update_profile(request, user_id):
 		else :
 			return redirect('/../../dashboard')
 
+
+# Update Email, First and Last name (ADMIN)
+def update_profile_admin(request, user_id):
+	if request.method == "POST":
+		user_tuple = User.userManager.update_profile_admin(user_id, request.POST['email'], request.POST['first_name'], request.POST['last_name'], request.POST['role'])
+		if user_tuple[0] == False:
+			print user_tuple[1].values()
+			context = {
+				'errors' : user_tuple[1].values()
+			}
+			return redirect('../../my_profile/'+ user_id, context)
+		else :
+			return redirect('/../../dashboard')
+
+
 # update password (for all users)
 def update_profile_pw(request,user_id):
 	if request.method == "POST":
@@ -78,5 +93,9 @@ def remove(request, user_id):
 	User.userManager.remove(user_id)
 	return redirect('/../../dashboard')
 
-
+def show(request, user_id):
+	context = {
+		'user' : User.userManager.getOne(user_id)
+	}
+	return render(request, 'dashboard/show.html', context)
 
