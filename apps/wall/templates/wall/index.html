@@ -44,7 +44,7 @@
 	         <li><a href="{% url 'my_profile' user_id=request.session.id %}">Profile</a></li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
-	       	<li><a href="{% url 'logout' %}">Log Off</a></li>
+	       	<li><a href="{% url 'logout' %}">Log Off - {{request.session.name}}</a></li>
 
 	      </ul>
 	    </div><!-- /.navbar-collapse -->

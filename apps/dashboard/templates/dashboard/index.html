@@ -34,11 +34,11 @@
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
-	        <li class="active"><a href="dashboard/">Dashboard <span class="sr-only">(current)</span></a></li>
+	        <li class="active"><a href="">Dashboard <span class="sr-only">(current)</span></a></li>
 	         <li><a href="{% url 'my_profile' user_id=request.session.id %}">Profile</a></li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
-	       	<li><a href="{% url 'logout' %}">Log Off</a></li>
+	       	<li><a href="{% url 'logout' %}">Log Off - {{request.session.name}}</a></li>
 
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
@@ -53,6 +53,15 @@
 		{% else %}
 		<h1>All Users</h1>
 	{% endif %}
+
+<!-- Search -->
+	<form method="GET" action="">
+		  <div class="form-group">
+		    <label for="Search">Search</label>
+		    <input type="test" class="form-control" id="search" name="search" placeholder="Search" value="{{request.GET.search }}">
+		  </div>
+		  <button type="submit" class="btn btn-default">Search</button>
+	</form>
 
 	{% if users %}
 	<table class="table table-hover">

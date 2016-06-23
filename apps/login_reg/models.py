@@ -125,3 +125,5 @@ class User(models.Model):
 		return self.first_name
 	class Meta:
 		db_table = "users"
+
+		

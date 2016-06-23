@@ -1,11 +1,21 @@
 from django.shortcuts import render,redirect
-
+from django.db.models import Q
 from ..login_reg.models import User
 
 # Create your views here.
 def index(request):
+	users = User.userManager.getAll()
+	query = request.GET.get("search")
+
+	if query:
+		users = users.filter(
+			Q(first_name__icontains=query)|
+			Q(last_name__icontains=query)|
+			Q(email__icontains=query)|
+			Q(role__icontains=query)).distinct()
+
 	context = {
-		'users' : User.userManager.getAll()
+		'users' : users
 	}
 	return render(request, 'dashboard/index.html', context)
 

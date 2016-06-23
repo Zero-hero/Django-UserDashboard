@@ -12,7 +12,7 @@ def index(request, user_id):
 	return render(request, 'wall/index.html', context)
 
 def add_msg(request, wall_id):
-	# user = User.userManager.getOne(request.session['id'])
+	user = User.userManager.getOne(request.session['id'])
 	if request.method == "POST":
 		user_tuple = Message.messageManager.addMessage(wall_id, request.POST['message'], request.session['id'])
 		if user_tuple[0] == False:
