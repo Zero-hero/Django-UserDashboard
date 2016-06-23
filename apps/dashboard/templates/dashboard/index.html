@@ -46,8 +46,7 @@
 	</nav>
 
 	<div class="container">
-
-	{% if request.session.role == 1 %}
+	{% if curr_user.role == 1 %}
 		<h1>Manage User</h1>
 		<a href="{% url 'new' %}" class="btn btn-default">Add User</a>
 		{% else %}

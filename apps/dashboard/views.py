@@ -4,6 +4,7 @@ from ..login_reg.models import User
 
 # Create your views here.
 def index(request):
+	user = User.userManager.getOne(request.session['id'])
 	users = User.userManager.getAll()
 	query = request.GET.get("search")
 
@@ -15,7 +16,8 @@ def index(request):
 			Q(role__icontains=query)).distinct()
 
 	context = {
-		'users' : users
+		'users' : users,
+		'curr_user' : user
 	}
 	return render(request, 'dashboard/index.html', context)
 
