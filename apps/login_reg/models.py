@@ -23,12 +23,9 @@ class UserManager(models.Manager):
 		try:
 			users = self.all()
 		except:
-			admin_user = 1
+			users = {}
 
-		try:
-			admin_user
-		except:
-			admin_user = 0
+
 		if len(first_name) < 2 or not NAME_REGEX.match(first_name):
 			errors['first_name'] = "name cannot be less than 2 characters & must have letters only"
 		if len(last_name) < 2 or not NAME_REGEX.match(last_name):
@@ -45,7 +42,7 @@ class UserManager(models.Manager):
 			return (False, errors)
 		else:
 			password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-			if admin_user == 1:
+			if len(users) < 1: 
 				self.create(first_name=first_name, last_name=last_name, email=email, password=password, role = 1)
 			else:
 				self.create(first_name=first_name, last_name=last_name, email=email, password=password, role = 0)
@@ -115,7 +112,7 @@ class User(models.Model):
 	last_name = models.CharField(max_length = 50)
 	role = models.IntegerField(default=0)
 	email = models.EmailField()
-	description = models.TextField(max_length = 1000, default="Hi")
+	description = models.TextField(max_length = 1000)
 	password = models.CharField(max_length = 100)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)

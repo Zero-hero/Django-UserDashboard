@@ -23,3 +23,11 @@ urlpatterns = [
     url(r'^user/', include('apps.wall.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ]
+
+
+
+# TO RESET SQL LITE DB -
+# INSTALL django-extensions
+# in the root folder run python manage.py reset_db
+# Then run python manage.py migrate again
+
